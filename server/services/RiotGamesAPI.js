@@ -76,9 +76,11 @@ const buildMatchHistory = async (matchHistoryIds) => {
 
 const buildMatch = (gameData, summonersData) => {
   const gameDuration = calcGameDuration(gameData);
+  const gameTime     = gameData["gameDuration"];
   const winningTeam  = summonersData["1"].stats.win ? "Blue" : "Red";
   let match = {
     gameDuration,
+    gameTime,
     winningTeam, 
     players: summonersData
   }
@@ -113,7 +115,7 @@ const buildSummonerBuild = (playerData, player) => {
 }
 
 const buildSummonerStats = (player, playerId, players) => {
-  const playerData   = player["stats"];
+  const playerData = player["stats"];
 
   return {
     name: players[playerId],
@@ -167,8 +169,8 @@ const findChampion = (championId) => {
   let champion;
 
   for (let champ in champions["data"]) {
-    if (champ["key"] === championId) {
-      champion = champ["name"];
+    if (champions["data"][champ]["key"] == championId) {
+      champion = champions["data"][champ]["name"];
     }
   }
 
@@ -177,7 +179,7 @@ const findChampion = (championId) => {
 
 const findItem = (itemId) => {
   const itemData = items["data"][itemId]
-  const item = itemData ? itemData["name"] : "";
+  const item = itemData ? itemData["name"] : "Empty slot";
   return item;
 }
 
@@ -185,8 +187,8 @@ const findSummonerSpell = (spellId) => {
   let summonerSpell;
 
   for (let spell in summoners["data"]) {
-    if (spell["key"] === spellId) {
-      summonerSpell = spell["name"];
+    if (summoners["data"][spell]["key"] == spellId) {
+      summonerSpell = summoners["data"][spell]["name"];
     }
   }
 
@@ -196,10 +198,11 @@ const findSummonerSpell = (spellId) => {
 /***** Calculation methods *****/
 
 const calcGameDuration = (gameData) => {
+  let seconds = gameData["gameDuration"] % 60;
+  seconds = `${seconds}`.length > 1 ? seconds : `0${seconds}` ;
   const minutes = Math.floor(gameData["gameDuration"] / 60);
-  const seconds = gameData["gameDuration"] % 60;
   const hours   = Math.floor(gameData["gameDuration"] / 3600);
-  const gameDuration = hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
+  const gameDuration = hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : `${minutes}m ${seconds}s`;
   return gameDuration;
 }
 
