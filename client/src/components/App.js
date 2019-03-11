@@ -109,7 +109,7 @@ export default class App extends Component {
     const { summonerName } = this.state;
     this.setState({ isLoading: true });
     const isInputValid  = this.validateInput(summonerName);
-    if (isInputValid && this.state.offCooldown) {
+    if (isInputValid) {
       axios.get("/api/matchHistory/" + summonerName)
       .then(response => {
         this.setState({ matchHistory: response.data, isLoading: false, errorMessage: null });
