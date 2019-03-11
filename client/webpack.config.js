@@ -15,6 +15,14 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "sass-loader" }
+        ]
       }
     ]
   },
@@ -25,5 +33,17 @@ module.exports = {
   ],
   node: {
     __dirname: false
+  },
+  devServer: {
+    contentBase: "./js/dist",
+    proxy: {
+      "/api/*": {
+        target: "http://localhost:1337/",
+        secure: "false"
+      }
+    },
+    hot: true,
+    historyApiFallback: true,
+    port: 8080
   }
 };
