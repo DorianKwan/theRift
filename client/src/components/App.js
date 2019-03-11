@@ -9,6 +9,7 @@ export default class App extends Component {
 
     this.state = {
       summonerName: "",
+      textInput: "",
       matchHistory: null,
       isLoading: false,
       errorMessage: null,
@@ -61,7 +62,7 @@ export default class App extends Component {
 
   renderSummonerForm() {
     const errorMessage = this.state.errorMessage ? this.renderErrorMessage() : "";
-    const isSubmitDisabled = this.state.summonerName.length < 3;
+    const isSubmitDisabled = this.state.textInput.length < 3;
     const submitButton = this.renderSubmitButton(isSubmitDisabled);
 
     return (
@@ -70,7 +71,7 @@ export default class App extends Component {
         {errorMessage}
         <input type="text" name="summoner" placeholder="Enter Summoner Name" 
           onChange={(e) => this.summonerInputChangeHandler.call(this, e)} 
-          value={this.state.summonerName} />
+          value={this.state.textInput} />
         <br />
         {submitButton}
       </div>
@@ -106,13 +107,13 @@ export default class App extends Component {
   }
 
   fetchMatchHistory() {
-    const { summonerName } = this.state;
-    this.setState({ isLoading: true });
-    const isInputValid  = this.validateInput(summonerName);
+    const { textInput } = this.state;
+    this.setState({ isLoading: true, summonerName: textInput });
+    const isInputValid  = this.validateInput(textInput);
     if (isInputValid) {
-      axios.get("/api/matchHistory/" + summonerName)
+      axios.get("/api/matchHistory/" + textInput)
       .then(response => {
-        this.setState({ matchHistory: response.data, isLoading: false, errorMessage: null });
+        this.setState({ matchHistory: response.data, isLoading: false, errorMessage: null, textInput: "" });
       }).catch(error => {
         console.log(error);
       });
@@ -120,6 +121,6 @@ export default class App extends Component {
   }
   
   summonerInputChangeHandler(element) {
-    this.setState({ summonerName: element.target.value });
+    this.setState({ textInput: element.target.value });
   }
 }
