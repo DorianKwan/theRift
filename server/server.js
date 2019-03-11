@@ -6,7 +6,7 @@ const RiotGamesAPI = require("./services/RiotGamesAPI");
 env.config();
 const app = express();
 
-PORT             = process.env.PORT;
+PORT             = process.env.PORT || 5000;
 VALIDATION_REGEX = /^[0-9\w{0,16} _\.]+$/;
 
 /***** Single Page Application Route *****/

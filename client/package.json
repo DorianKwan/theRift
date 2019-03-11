@@ -6,6 +6,7 @@
     "start": "webpack-dev-server --move development --open --hot",
     "build": "webpack --mode production"
   },
+  "proxy": "http://localhost:5000/",
   "author": "Bryce Sayers-Kwan",
   "dependencies": {
     "axios": "^0.18.0",
