@@ -7,7 +7,7 @@ env.config();
 const app = express();
 
 PORT             = process.env.PORT;
-VALIDATION_REGEX = /^[0-9\\p{L} _\\.]+$/;
+VALIDATION_REGEX = /^[0-9\w{0,16} _\.]+$/;
 
 /***** Single Page Application Route *****/
 
