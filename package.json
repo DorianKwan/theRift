@@ -1,0 +1,29 @@
+{
+  "name": "therift",
+  "version": "1.0.0",
+  "description": "My Rift is a React App to pull match history from the Riot Games API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DorianKwan/theRift.git"
+  },
+  "author": "Bryce Sayers-Kwan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DorianKwan/theRift/issues"
+  },
+  "homepage": "https://github.com/DorianKwan/theRift#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "concurrently": "^4.1.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
