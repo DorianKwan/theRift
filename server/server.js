@@ -1,6 +1,7 @@
 const express      = require("express");
 const env          = require("dotenv");
 const path         = require("path");
+const cors         = require("cors");
 const RiotGamesAPI = require("./services/RiotGamesAPI");
 
 env.config();
@@ -23,7 +24,7 @@ if (process.env.NODE_ENV === "production") {
 
 /***** Server API Routes *****/
 
-app.get("/api/matchHistory/:summonerName", async (req, res) => {
+app.get("/api/matchHistory/:summonerName", cors(), async (req, res) => {
   const { summonerName } = req.params
 
   // Handle no summmoner name input
