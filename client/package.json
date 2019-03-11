@@ -7,7 +7,7 @@
     "build": "webpack --mode production"
   },
   "proxy": {
-    "proxy:": "http://localhost:3000"
+    "proxy:": "http://localhost:8080"
   },
   "author": "Bryce Sayers-Kwan",
   "dependencies": {
