@@ -8,6 +8,18 @@ const app = express();
 PORT             = process.env.PORT;
 VALIDATION_REGEX = /^[0-9\\p{L} _\\.]+$/;
 
+/***** Single Page Application Route *****/
+
+// Production mode
+if (process.env.NODE_ENV === "production") {
+  // Static file declaration
+  app.use(express.static(path.join(__dirname, "../client/dist/app_bundle")));
+
+  app.get("*", (req, res) => {
+    res.sendfile(path.join(__dirname = "../client/dist/index.html"));
+  })
+}
+
 /***** Server API Routes *****/
 
 app.get("/api/matchHistory/:summonerName", async (req, res) => {
