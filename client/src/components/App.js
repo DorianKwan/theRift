@@ -9,7 +9,7 @@ export default class App extends Component {
 
     this.state = {
       summonerName: "",
-      matchHistory: "something",
+      matchHistory: null,
       isLoading: false,
       errorMessage: null,
       validationRegex: /^[0-9\w{0,16} _\.]+$/
