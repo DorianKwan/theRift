@@ -8,6 +8,7 @@
     "server": "nodemon server/server.js",
     "client": "npm start --prefix client",
     "client-install": "cd client && npm install",
+    "build-client": "cd client && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prod": "concurrently \"npm run start\" \"npm run client\""
   },
