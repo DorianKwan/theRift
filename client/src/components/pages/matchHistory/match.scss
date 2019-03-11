@@ -1,0 +1,29 @@
+.match {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 0.75rem;
+
+  div {
+    padding-bottom: 0.2rem;
+  }
+  
+  .match-won {
+    background-color: #a3cfec;
+    border: solid 2px #99b9cf;
+  }
+
+  .match-loss {
+    background-color: #e2b6b3;
+    border: solid 2px #cea7a7;
+  }
+
+  .victory {
+    color: #038787;
+    font-weight: bold;
+  }
+
+  .defeat {
+    color: #C7592A;
+    font-weight: bold;
+  }
+}
