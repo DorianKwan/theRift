@@ -6,11 +6,12 @@
   "scripts": {
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
-    "client": "npm start --prefix client",
+    "client": "npm run build --prefix client",
     "client-install": "cd client && npm install",
     "build-client": "cd client && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "prod": "concurrently \"npm run start\" \"npm run client\""
+    "prod": "concurrently \"npm run start\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "repository": {
     "type": "git",
