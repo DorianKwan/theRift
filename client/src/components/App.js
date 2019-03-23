@@ -42,6 +42,7 @@ export default class App extends Component {
   }
 
   renderErrorMessage() {
+    this.setState({ isLoading: false });
     const error = this.state.errorMessage;
     return (
       <p className="error-message">{error}</p>
@@ -115,7 +116,7 @@ export default class App extends Component {
       .then(response => {
         this.setState({ matchHistory: response.data, isLoading: false, errorMessage: null, textInput: "" });
       }).catch(error => {
-        console.log(error);
+        this.setState({ isLoading: false, errorMessage: error });
       });
     }
   }
