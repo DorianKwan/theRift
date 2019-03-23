@@ -49,22 +49,12 @@ export default class App extends Component {
     );
   }
 
-  renderSubmitButton(isSubmitDisabled) {
-    let button;
-    if (isSubmitDisabled) {
-      button = <button disabled className="button is-info is-wide" onClick={this.fetchMatchHistory}>Find Match History</button>;
-    } else {
-      button = <button className="button is-info is-wide" onClick={this.fetchMatchHistory}>Find Match History</button>;
-    }
-    return (
-      button
-    );
-  }
-
   renderSummonerForm() {
     const errorMessage = this.state.errorMessage ? this.renderErrorMessage() : "";
     const isSubmitDisabled = this.state.textInput.length < 3;
-    const submitButton = this.renderSubmitButton(isSubmitDisabled);
+    const submitButton = <button disabled={isSubmitDisabled} 
+                                 className="button is-info is-wide" 
+                                 onClick={this.fetchMatchHistory}>Find Match History</button>;
 
     return (
       <div>
