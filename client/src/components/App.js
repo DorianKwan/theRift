@@ -71,7 +71,7 @@ export default class App extends Component {
         <h2>Find Summoner Match History</h2>
         {errorMessage}
         <input type="text" name="summoner" placeholder="Enter Summoner Name" 
-          onChange={(e) => this.summonerInputChangeHandler.call(this, e)} 
+          onChange={(e) => this.summonerInputChangeHandler(e)} 
           value={this.state.textInput} />
         <br />
         {submitButton}
