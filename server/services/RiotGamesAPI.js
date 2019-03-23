@@ -60,7 +60,7 @@ const buildMatchHistory = async (matchHistoryIds) => {
   let matchHistory = {};
   let gameNumber = 1;
 
-  for  await (let match of matchHistoryIds.slice(0, 6)) {
+  for (let match of matchHistoryIds.slice(0, 6)) {
     const matchData = await getMatchData(match["gameId"]);;
     matchHistory[gameNumber] = matchData
     gameNumber++;
