@@ -1,15 +1,12 @@
-const axios     = require("axios");
-const env       = require("dotenv");
-const runes     = require("../staticGameData/runesReforged");
-const items     = require("../staticGameData/item");
+const axios = require("axios");
+const runes = require("../staticGameData/runesReforged");
+const items = require("../staticGameData/item");
 const champions = require("../staticGameData/champion");
 const summoners = require("../staticGameData/summoner");
 
-env.config();
-
-API_URL            = "https://na1.api.riotgames.com/";
-API_KEY            = process.env.API_KEY;
-SUMMONERS_PATH     = "lol/summoner/v4/summoners/by-name/";
+API_URL = "https://na1.api.riotgames.com/";
+API_KEY = process.env.API_KEY;
+SUMMONERS_PATH = "lol/summoner/v4/summoners/by-name/";
 MATCH_HISTORY_PATH = "lol/match/v4/matchlists/by-account/";
 MATCH_OUTCOME_PATH = "lol/match/v4/matches/";
 
@@ -17,46 +14,44 @@ MATCH_OUTCOME_PATH = "lol/match/v4/matches/";
 
 const RiotGamesAPI = {
   getMatchHistory: async (summonerName) => {
-    const summonerData    = await getSummonerData(summonerName);
+    const summonerData = await getSummonerData(summonerName);
     const matchHistoryIds = await getMatchHistoryIds(summonerData.accountId);
-    const matchHistory    = await buildMatchHistory(matchHistoryIds)
+    const matchHistory = await buildMatchHistory(matchHistoryIds)
     return { matchHistory, summonerName: summonerData["name"] };
   }
 }
 
 /***** Riot Games API Request Methods *****/
 
+// Basic API request method
+const sendApiRequest = async (path, requestData) => {
+  const key = `?api_key=${API_KEY}`;
+  return await axios.get(`${API_URL}${path}${requestData}${key}`)
+    .then((response) => {
+      return response.data;
+    }).catch((error) => {
+      throw error;
+    });
+}
+
 // Request for basic summoner data (important data is the account ID)
 const getSummonerData = async (summonerName) => {
-  return await axios.get(API_URL + SUMMONERS_PATH + summonerName + "?api_key=" + API_KEY)
-    .then(response => {
-      return response.data;
-    }).catch(error => {
-      console.log(error);
-    });
+  return await sendApiRequest(SUMMONERS_PATH, summonerName);
 }
 
 // Request for a summoners match history (returns match ids)
 const getMatchHistoryIds = async (accountId) => {
-  return await axios.get(API_URL + MATCH_HISTORY_PATH + accountId + "?end_index=20" + "&api_key=" + API_KEY)
-    .then(response => {
-      return response.data.matches;
-    }).catch(error => {
-      console.log(error);
-    })
+  const responseData = await sendApiRequest(MATCH_HISTORY_PATH, accountId);
+  return responseData.matches;
 }
 
 // Request for match data (returns highly modified data to suit front-end needs)
 const getMatchData = async (matchId) => {
-  return await axios.get(API_URL + MATCH_OUTCOME_PATH + matchId + "?api_key=" + API_KEY)
-    .then(response => {
-      const summonersInfo = pullSummonersInfo(response.data);
-      const summonersData = pullSummonersData(response.data, summonersInfo);
-      const match = buildMatch(response.data, summonersData);
-      return match;
-    }).catch(error => {
-      console.log(error);
-    });
+  const responseData = await sendApiRequest(MATCH_OUTCOME_PATH, matchId);
+  const summonersInfo = pullSummonersInfo(responseData);
+  const summonersData = pullSummonersData(responseData, summonersInfo);
+  const match = buildMatch(responseData, summonersData);
+  return match;
 }
 
 /***** Data builder methods *****/
@@ -65,7 +60,7 @@ const buildMatchHistory = async (matchHistoryIds) => {
   let matchHistory = {};
   let gameNumber = 1;
 
-  for await (let match of matchHistoryIds.slice(0, 6)) {
+  for  await (let match of matchHistoryIds.slice(0, 6)) {
     const matchData = await getMatchData(match["gameId"]);;
     matchHistory[gameNumber] = matchData
     gameNumber++;
@@ -76,8 +71,8 @@ const buildMatchHistory = async (matchHistoryIds) => {
 
 const buildMatch = (gameData, summonersData) => {
   const gameDuration = calcGameDuration(gameData);
-  const gameTime     = gameData["gameDuration"];
-  const winningTeam  = summonersData["1"].stats.win ? "Blue" : "Red";
+  const gameTime = gameData["gameDuration"];
+  const winningTeam = summonersData["1"].stats.win ? "Blue" : "Red";
   let match = {
     gameDuration,
     gameTime,
@@ -201,7 +196,7 @@ const calcGameDuration = (gameData) => {
   let seconds = gameData["gameDuration"] % 60;
   seconds = `${seconds}`.length > 1 ? seconds : `0${seconds}` ;
   const minutes = Math.floor(gameData["gameDuration"] / 60);
-  const hours   = Math.floor(gameData["gameDuration"] / 3600);
+  const hours = Math.floor(gameData["gameDuration"] / 3600);
   const gameDuration = hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : `${minutes}m ${seconds}s`;
   return gameDuration;
 }
@@ -216,8 +211,8 @@ const calcCreepScore = (playerData) => {
 }
 
 const calcKDA = (playerData) => {
-  kills   = playerData["kills"];
-  deaths  = playerData["deaths"];
+  kills = playerData["kills"];
+  deaths = playerData["deaths"];
   assists = playerData["assists"];
   return ((kills + assists) / deaths).toFixed(2);
 }
