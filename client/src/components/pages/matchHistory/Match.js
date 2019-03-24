@@ -10,7 +10,7 @@ export default class Match extends Component {
     let summoner;
 
     for (let key in players) {
-      if (players[key].name === summonerName) {
+      if (players[key].name == summonerName.replace(/[.]/g, " ")) {
         summoner = players[key];
       }
     }
@@ -19,18 +19,21 @@ export default class Match extends Component {
   }
 
   determineGameResult(matchData, summonerTeam) {
-    const team   = summonerTeam === 100 ? "Blue" : "Red";
+    const team = summonerTeam === 100 ? "Blue" : "Red";
     const result = team === matchData.winningTeam ? "Victory" : "Defeat";
     return result;
   }
 
   renderMatchContent() {
-    const { matchData, summoner }   = this.props;
+    const { matchData, summoner } = this.props;
     const { gameDuration, players } = matchData;
-    const desiredSummoner           = this.findDesiredSummoner(players, summoner);
+    const desiredSummoner = this.findDesiredSummoner(players, summoner);
+
+    if (!desiredSummoner) return ("");
+
     const { build, stats, team, champion } = desiredSummoner;
-    const gameResult   = this.determineGameResult(matchData, team);
-    const multiKill    = stats.score.highestMultiKill ? stats.score.highestMultiKill : "";
+    const gameResult = this.determineGameResult(matchData, team);
+    const multiKill = stats.score.highestMultiKill ? stats.score.highestMultiKill : "";
     const matchClasses = gameResult === "Defeat" ? "columns match match-loss" : "columns match match-won";
 
     return (
