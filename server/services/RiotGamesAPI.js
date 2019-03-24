@@ -14,10 +14,14 @@ MATCH_OUTCOME_PATH = "lol/match/v4/matches/";
 
 const RiotGamesAPI = {
   getMatchHistory: async (summonerName) => {
-    const summonerData = await getSummonerData(summonerName);
-    const matchHistoryIds = await getMatchHistoryIds(summonerData.accountId);
-    const matchHistory = await buildMatchHistory(matchHistoryIds)
-    return { matchHistory, summonerName: summonerData["name"] };
+    try {
+      const summonerData = await getSummonerData(summonerName);
+      const matchHistoryIds = await getMatchHistoryIds(summonerData.accountId);
+      const matchHistory = await buildMatchHistory(matchHistoryIds)
+      return { matchHistory, summonerName: summonerData["name"] };
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
@@ -95,12 +99,17 @@ const buildSummonerItemBuild = (playerData) => {
   }
 }
 
+const matchSummonerRuneStyle = (runes, perk) => {
+  runeStyle = runes.find((item) => item["id"] === perk);
+  return runeStyle ? runeStyle["name"] : runeStyle;
+}
+
 const buildSummonerBuild = (playerData, player) => {
   return {
     items: buildSummonerItemBuild(playerData),
     runes: {
-      primary: runes.find((item) => item["id"] === playerData["perkPrimaryStyle"])["name"],
-      secondary: runes.find((item) => item["id"] === playerData["perkSubStyle"])["name"]
+      primary: matchSummonerRuneStyle(runes, playerData["perkPrimaryStyle"]),
+      secondary: matchSummonerRuneStyle(runes, playerData["perkSubStyle"])
     },
     summonerSpells: {
       one: findSummonerSpell(player["spell1Id"]),
