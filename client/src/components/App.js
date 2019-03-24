@@ -42,7 +42,6 @@ export default class App extends Component {
   }
 
   renderErrorMessage() {
-    this.setState({ isLoading: false });
     const error = this.state.errorMessage;
     return (
       <p className="error-message">{error}</p>
@@ -106,9 +105,11 @@ export default class App extends Component {
       .then(response => {
         this.setState({ matchHistory: response.data, isLoading: false, errorMessage: null, textInput: "" });
       }).catch(error => {
-        this.setState({ isLoading: false, errorMessage: error });
+        const errMessage = error.response.status === 404 ? "Summoner data not found." : "Something went wrong.  Please try again later."
+        this.setState({ isLoading: false, errorMessage: errMessage });
       });
     }
+    return;
   }
   
   summonerInputChangeHandler(element) {
