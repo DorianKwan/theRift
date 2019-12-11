@@ -9,7 +9,7 @@
   "proxy": "http://localhost:5000/",
   "author": "Bryce Sayers-Kwan",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bulma": "^0.7.4",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
