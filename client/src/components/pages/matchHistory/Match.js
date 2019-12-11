@@ -106,9 +106,9 @@ export default class Match extends Component {
           <p>{stats.score.pinkWards} Control Wards</p>
         </div>
         <div className="player-names">
-          <h4>Players</h4>
-          <div class="players">
+          <div className="players">
             <div>
+              <h4>Blue Team</h4>
               <p>{matchData.players["1"].name}</p>
               <p>{matchData.players["2"].name}</p>
               <p>{matchData.players["3"].name}</p>
@@ -116,6 +116,7 @@ export default class Match extends Component {
               <p>{matchData.players["5"].name}</p>
             </div>
             <div>
+              <h4>Red Team</h4>
               <p>{matchData.players["6"].name}</p>
               <p>{matchData.players["7"].name}</p>
               <p>{matchData.players["8"].name}</p>

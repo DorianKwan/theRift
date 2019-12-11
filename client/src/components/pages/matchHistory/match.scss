@@ -1,5 +1,6 @@
 .match {
   padding: 1rem 2rem;
+  padding-right: 1rem;
   margin: 1.5rem auto;
   font-size: 0.75rem;
   width: 100%;
@@ -142,20 +143,20 @@
   }
 
   .player-names {
-    display: flex;
-    flex-direction: column;
     text-align: left;
 
     .players {
       display: flex;
       flex-direction: row;
+      width: 18.5rem;
+      justify-content: space-between;
 
       div p {
         margin-bottom: 0.5rem;
       }
 
-      div:first-child {
-        margin-right: 3rem;
+      div:last-child {
+        min-width: 8.5rem;
       }
     }
   }
