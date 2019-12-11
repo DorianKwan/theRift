@@ -51,26 +51,26 @@ export default class App extends Component {
   renderSummonerForm() {
     const errorMessage = this.state.errorMessage ? this.renderErrorMessage() : "";
     const isSubmitDisabled = this.state.textInput.length < 3;
-    const submitButton = <button disabled={isSubmitDisabled} 
-                                 className="button is-info is-wide" 
-                                 onClick={this.fetchMatchHistory}>Find Match History</button>;
 
     return (
-      <div>
-        <h2>Find Summoner Match History</h2>
+      <div className="summoner-form">
+        <label className="input-label">Find Summoner Match History</label>
         {errorMessage}
-        <input type="text" name="summoner" placeholder="Enter Summoner Name" 
+        <input className="summoner-name-input" type="text" name="summoner" placeholder="Enter Summoner Name" 
           onChange={(e) => this.summonerInputChangeHandler(e)} 
           value={this.state.textInput} />
-        <br />
-        {submitButton}
+        <button disabled={isSubmitDisabled} 
+                className="match-history-button" 
+                onClick={this.fetchMatchHistory}>
+          Find Match History
+        </button>
       </div>
     );
   }
 
   renderLoader() {
     return (
-      <div>
+      <div className="loading-spinner">
         <div className="lds-spinner">
           <div></div><div></div>
           <div></div><div></div>
@@ -88,8 +88,8 @@ export default class App extends Component {
     const content = this.state.isLoading ? this.renderLoader() : this.renderSummonerForm();
 
     return (
-    <div className="main container has-text-centered">
-      <h1>the Rift</h1>
+    <div className="main container">
+      <h1 className="app-title">the Rift</h1>
       {content}
       <MatchHistory matches={this.state.matchHistory} summoner={this.state.summonerName} />
     </div>
