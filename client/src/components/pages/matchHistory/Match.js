@@ -34,81 +34,95 @@ export default class Match extends Component {
     const { build, stats, team, champion } = desiredSummoner;
     const gameResult = this.determineGameResult(matchData, team);
     const multiKill = stats.score.highestMultiKill ? stats.score.highestMultiKill : "";
-    const matchClasses = gameResult === "Defeat" ? "columns match match-loss" : "columns match match-won";
+    const matchClasses = gameResult === "Defeat" ? "match match-loss" : " match match-won";
 
     return (
       <div className={matchClasses}>
-        <div className="column is-1">
+        <div className="game-result">
           <div className={gameResult.toLowerCase()}>
-            {gameResult}
+            <h2>{gameResult}</h2>
           </div>
           <hr />
           <div>
             {gameDuration}
           </div>
         </div>
-        <div className="columns column is-3">
-          <div className="column">
-            <div>Summoner Spells:</div>
-            <div>{build.summonerSpells.one}</div>
-            <div>{build.summonerSpells.two}</div>
+        <div className="summoner-selection">
+          <div className="champion">
+            <h4>Champion:</h4>
+            <p>{champion}</p>
           </div>
-          <div className="column">
-            <div>Champion:</div>
-            <div>{champion}</div>
+          <div className="summoner-spells">
+            <h4>Summoner Spells:</h4>
+            <div>
+              <p>{build.summonerSpells.one}</p>
+              <p>{build.summonerSpells.two}</p>
+            </div>
           </div>
-          <div className="column">
-            <div>Runes:</div>
-            <div>{build.runes.primary}</div>
-            <div>{build.runes.secondary}</div>
+          <div className="runes">
+            <h4>Runes:</h4>
+            <div>
+              <p>{build.runes.primary}</p>
+              <p>{build.runes.secondary}</p>
+            </div>
           </div>
         </div>
-        <div className="column is-1">
-          <p>{stats.score.kills}/{stats.score.deaths}/{stats.score.assists}</p>
-          <p>{stats.score.kda}:1 KDA</p>
-          <p>{multiKill}</p>
+        <div className="summoner-data">
+          <h4>In Game Stats:</h4>
+          <div>
+            <p>{stats.score.kills}/{stats.score.deaths}/{stats.score.assists}</p>
+            <p>{stats.score.kda}:1 KDA</p>
+          </div>
+          <div>
+            <p>Highest Multikill: <b>{multiKill}</b></p>
+          </div>
+          <div>
+            <p>Level {stats.championLevel}</p>
+            <p>{stats.score.creepScore} ({(stats.score.creepScore / (matchData.gameTime / 60)).toFixed(2)}) CS</p>
+          </div>
         </div>
-        <div className="column is-1">
-          <p>Level {stats.championLevel}</p>
-          <p>{stats.score.creepScore} ({(stats.score.creepScore / (matchData.gameTime / 60)).toFixed(2)}) CS</p>
+        <div className="items">
+          <div className="item-column">
+            <div className="item-label">Item 1</div>
+            <p>{build.items.item0}</p>
+            <div className="item-label">Item 2</div>
+            <p>{build.items.item1}</p>
+          </div>
+          <div className="item-column">
+            <div className="item-label">Item 3</div>
+            <p>{build.items.item2}</p>
+            <div className="item-label">Item 4</div>
+            <p>{build.items.item3}</p>
+          </div>
+          <div className="item-column">
+            <div className="item-label">Item 5</div>
+            <p>{build.items.item4}</p>
+            <div className="item-label">Item 6</div>
+            <p>{build.items.item5}</p>
+          </div>
         </div>
-        <div className="columns column is-3">
-          <div className="column">
-              <div>Item 1</div>
-              <div>{build.items.item0}</div>
-              <div>Item 2</div>
-              <div>{build.items.item1}</div>
+        <div className="trinket-and-wards">
+          <p>{build.items.item6}</p>
+          <p>{stats.score.pinkWards} Control Wards</p>
+        </div>
+        <div className="player-names">
+          <h4>Players</h4>
+          <div class="players">
+            <div>
+              <p>{matchData.players["1"].name}</p>
+              <p>{matchData.players["2"].name}</p>
+              <p>{matchData.players["3"].name}</p>
+              <p>{matchData.players["4"].name}</p>
+              <p>{matchData.players["5"].name}</p>
             </div>
-            <div className="column">
-              <div>Item 3</div>
-              <div>{build.items.item2}</div>
-              <div>Item 4</div>
-              <div>{build.items.item3}</div>
+            <div>
+              <p>{matchData.players["6"].name}</p>
+              <p>{matchData.players["7"].name}</p>
+              <p>{matchData.players["8"].name}</p>
+              <p>{matchData.players["9"].name}</p>
+              <p>{matchData.players["10"].name}</p>
             </div>
-            <div className="column">
-              <div>Item 5</div>
-              <div>{build.items.item4}</div>
-              <div>Item 6</div>
-              <div>{build.items.item5}</div>
-            </div>
-        </div>
-        <div className="column is-1">
-          <div>{build.items.item6}</div>
-          <div>{stats.score.pinkWards} Control Wards</div>
-        </div>
-        <div className="column is-1">
-          <p>{matchData.players["1"].name}</p>
-          <p>{matchData.players["2"].name}</p>
-          <p>{matchData.players["3"].name}</p>
-          <p>{matchData.players["4"].name}</p>
-          <p>{matchData.players["5"].name}</p>
-        </div>
-        <div className="column is-1">
-          <p>{matchData.players["6"].name}</p>
-          <p>{matchData.players["7"].name}</p>
-          <p>{matchData.players["8"].name}</p>
-          <p>{matchData.players["9"].name}</p>
-          <p>{matchData.players["10"].name}</p>
+          </div>
         </div>
       </div>
     );
@@ -117,10 +131,6 @@ export default class Match extends Component {
   render() {
     const matchContent = this.renderMatchContent();
 
-    return (
-      <div className="match">
-        {matchContent}    
-      </div>
-    );
+    return matchContent;
   }
 }

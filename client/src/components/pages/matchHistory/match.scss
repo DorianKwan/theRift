@@ -1,29 +1,162 @@
 .match {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem 2rem;
+  margin: 1.5rem auto;
   font-size: 0.75rem;
-
-  div {
-    padding-bottom: 0.2rem;
-  }
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   
-  .match-won {
+  &.match-won {
     background-color: #a3cfec;
     border: solid 2px #99b9cf;
   }
 
-  .match-loss {
+  &.match-loss {
     background-color: #e2b6b3;
     border: solid 2px #cea7a7;
   }
 
-  .victory {
-    color: #038787;
-    font-weight: bold;
+  div {
+    padding-bottom: 0.2rem;
   }
 
-  .defeat {
-    color: #C7592A;
+  h4 {
+    font-size: 1rem;
     font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  } 
+
+  .game-result {
+    .victory {
+      color: #038787;
+    }
+  
+    .defeat {
+      color: #C7592A;
+    }
+  
+    .victory,
+    .defeat {
+      h2 {
+        margin: 0;
+        padding: 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+  
+    hr {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .summoner-selection {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .champion,
+    .summoner-spells,
+    .runes {
+      display: flex;
+      flex-direction: column;
+  
+      h4 {
+        margin-bottom: 0.25rem;
+      }
+
+      div {
+        display: flex;
+        flex-direction: row;
+        height: 1.25rem;
+        margin-bottom: 0.5rem;
+
+        p {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .summoner-data {
+    div {
+      display: flex;
+      flex-direction: row;
+
+      &:first-child {
+        margin-bottom: 2rem;
+      }
+
+      p {
+        margin-right: 1rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 20.75rem;
+
+    .item-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0 0.75rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0
+      }
+
+
+      .item-label {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .trinket-and-wards {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .player-names {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    .players {
+      display: flex;
+      flex-direction: row;
+
+      div p {
+        margin-bottom: 0.5rem;
+      }
+
+      div:first-child {
+        margin-right: 3rem;
+      }
+    }
   }
 }
