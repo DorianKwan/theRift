@@ -9,24 +9,24 @@
   "proxy": "http://localhost:5000/",
   "author": "Bryce Sayers-Kwan",
   "dependencies": {
-    "axios": "^0.18.0",
-    "bulma": "^0.7.4",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "sass": "^1.17.2"
+    "axios": "^0.19.0",
+    "bulma": "^0.8.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "sass": "^1.23.7"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "css-loader": "^2.1.1",
-    "html-webpack-plugin": "^3.2.0",
-    "node-sass": "^4.11.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.2.1"
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.3.0",
+    "html-webpack-plugin": ">=3.2.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   }
 }
